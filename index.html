@@ -49,6 +49,70 @@
         Our source code is online <a href="https://github.com/AnReu/selma_code">here</a>.
       </p>
 
+      <h4>Suggested Settings</h4>
+      <p>
+        With SELMA you can choose two different index types: BM25 and CodeColBERT. BM25 offers stable results, but
+          does only perform search using string-matching. CodeColBERT is based on powerful Transformer-Encoder-Models,
+          which are trained to "understand" the users query and find matching code snippets. Because of this, it delivers
+          better results than BM25. Therefore, <b>we recommend using the CodeColBERT index.</b>
+          However, it requires at least one GPU to run, while BM25 does not. If the server where the SELMA is deployed
+          does not have access to a GPU with CUDA support, we suggest using the BM25 index.
+      </p>
+      <p>
+          In order to enable semantic code search also when using BM25, SELMA offers the Code Expansion feature. Using two
+          Transformer-based models, SELMA generates documentation for each code snippet. This way, the code is annotated
+          using natural language words which helps the BM25 algorithm to find more relevant results when searching
+          using natural language key words. We apply two different models to increase the diversity of generated terms,
+          since we found that the generation of both models overlaps by only 36% - 50%. Therefore, <b>we recommend using both
+          models for code expansion.</b>
+          However, each of the models can be disabled and during the setup process this entire feature can be
+          activated or not. Keep in mind that this process of generating documentation strings can take some time.
+      </p>
+      <p>
+          The speed at which results can be delivered by the system heavily relies on several factors,
+          including the hardware configuration of the server, the size of the index
+          (corresponding to the size of the code repositories), and the specific type of index being employed.
+          In general, BM25 provides a swift search experience. On the other hand, the CodeColBERT index is
+          approximately 10 times slower, but it remains applicable in real-world scenarios, as demonstrated in our videos.
+    As previously mentioned, if a GPU is not available, we recommend opting for BM25. Moreover, when dealing with an
+          extensive volume of code, CodeColBERT might exhibit slower performance. In such cases, we suggest starting
+          with CodeColBERT and assessing its retrieval speed. If it fails to meet your expectations, transitioning
+          to BM25 is advantageous due to its faster retrieval times.
+      </p>
+      <p>
+          The following table sums up in which case which index should be used.
+      </p>
+      <table>
+<thead>
+  <tr>
+    <th></th>
+    <th>BM25</th>
+    <th>BM25 with Code Expansion</th>
+    <th>CodeColBERT</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Results</td>
+    <td>-</td>
+    <td>+</td>
+    <td>++</td>
+  </tr>
+  <tr>
+    <td>GPU Requirement</td>
+    <td>no</td>
+    <td>no</td>
+    <td>Required</td>
+  </tr>
+  <tr>
+    <td>Speed</td>
+    <td>++</td>
+    <td>++</td>
+    <td>+</td>
+  </tr>
+</tbody>
+</table>
+
       </main>
 
   <footer>
